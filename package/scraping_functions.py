@@ -146,3 +146,49 @@ def scrape_game_data(game_url):
     
     return pbp_data
 
+
+def scrape_games(game_links=[], data_file_extension ='data', game_file_extension='games'):
+    games = {
+    'game_id': [], 
+    'team1': [], 
+    'team2': [],
+    'link': []
+    }
+
+    data = pd.DataFrame({
+        'Quarter': [], 
+        'Time': [], 
+        'Down': [], 
+        'ToGo': [], 
+        'Location': [], 
+        'Lions': [], 
+        'Chiefs': [], 
+        'Detail': [], 
+        'EPB': [],
+        'EPA': [], 
+        'field_side': [], 
+        'yardline': [], 
+        'play_start_time': [], 
+        'Play_Type': [], 
+        'posession': [], 
+        'Yardage': []
+                    })
+    
+    for link in game_links:
+        game_data = scrape_game_data(link)
+        game_data['game_id'] = id
+        team1 = game_data.columns[5]
+        team2 = game_data.columns[6]
+        game_data = game_data.rename(columns={game_data.columns[5]: 'team1', 
+                                    game_data.columns[6]: 'team2'})
+        games['game_id'].append(id)
+        games['team1'].append(team1)
+        games['team2'].append(team2)
+        games['link'].append(link)
+        data = pd.concat([data, game_data], axis=0)
+        id = id + 1
+        time.sleep(30)
+    games_df = pd.DataFrame(games)
+    data.to_csv(f'../data/{data_file_extension}.csv',index=False)
+    games_df.to_csv(f'../data/{game_file_extension}.csv', index=False)
+    print('done')
