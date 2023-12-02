@@ -21,7 +21,7 @@ def get_drive_table(team, soup):
 
     Returns
     -------
-    pandas.DataFrame
+    drives_df : pandas.DataFrame
         A DataFrame containing the drive data for the specified team.
 
     Notes
@@ -75,7 +75,7 @@ def scrape_pbp(game_page_soup):
 
     Returns
     -------
-    pandas.DataFrame
+    pbp_datas : pandas.DataFrame
         A DataFrame containing play-by-play data extracted from the specified game page.
 
     Notes
@@ -122,7 +122,7 @@ def scrape_game_data(game_url):
 
     Returns
     -------
-    pandas.DataFrame
+    pbp_data : pandas.DataFrame
         A DataFrame containing cleaned play-by-play (PBP) data for the game.
 
     Notes
@@ -130,16 +130,6 @@ def scrape_game_data(game_url):
     This function extracts drive data for the home and visiting teams, as well as play-by-play
     (PBP) data, from the specified game URL. It performs data cleaning and transformation,
     including handling time-related columns and determining possession.
-
-    Parameters
-    ----------
-    game_url : str
-        The URL of the Pro Football Reference game page to scrape.
-
-    Returns
-    -------
-    pandas.DataFrame
-        A DataFrame containing cleaned play-by-play (PBP) data for the game.
 
     Example
     -------
