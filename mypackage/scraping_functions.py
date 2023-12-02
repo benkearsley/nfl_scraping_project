@@ -300,3 +300,5 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
     data.to_csv(data_file_path,index=False)
     games_df.to_csv(game_file_path, index=False)
     print('done')
+
+    
