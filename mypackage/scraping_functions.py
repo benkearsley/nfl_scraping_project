@@ -260,19 +260,6 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
     using the `scrape_game_data` function, and saves the cleaned data in CSV files. It introduces a
     delay of 30 seconds between each scraping operation to avoid overloading the server.
 
-    Parameters
-    ----------
-    game_links : list of str, optional
-        List of Pro Football Reference game URLs to scrape. Default is an empty list.
-    data_file_extension : str, optional
-        File path for the PBP data file CSV. Default is 'data.csv'.
-    game_file_extension : str, optional
-        File path for the game file CSV. Default is 'games.csv'.
-
-    Returns
-    -------
-    None
-
     Example
     -------
     >>> game_urls = ['https://www.pro-football-reference.com/boxscores/202309070kan.htm', ...]
