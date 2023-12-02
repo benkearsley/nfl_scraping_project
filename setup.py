@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-
+# https://setuptools.pypa.io/en/latest/userguide/quickstart.html
 
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
@@ -22,6 +22,7 @@ setup(
         # Do I need to include thins like sphinx?  Or setuptools?  Also is bs4 included in the right way?
     ],
     long_description=long_description,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
+    exclude=['Game Data Collection.ipynb']
 )
 
