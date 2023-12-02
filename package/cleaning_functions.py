@@ -5,25 +5,17 @@ def elapsed_time(time_list):
     time_list = time_list.tolist()
     elapsed_times = []
     length = len(time_list)
-    # print(length)
     for i in range(0,length-1):
-        # print('in for loop')
-        # print(i)
         time1 = time_list[i]
-        # print(time1)
         time2 = time_list[i+1]
-        # print(time2)
-        # print(f'time1: {time1}, time2: {time2}')
         if time1 > time2:
             elapsed = time1 - time2
-            # print(elapsed)
             elapsed_times.append(elapsed)
         elif time1 == time2:
             elapsed = 0
             elapsed_times.append(elapsed)
         else:
             elapsed = (time1) + (15-time2)
-            # print(elapsed)
             elapsed_times.append(elapsed)
     elapsed_times.append(time_list[length-1])
     return elapsed_times
@@ -33,11 +25,9 @@ def game_time(elapsed_time):
     elapsed_time = elapsed_time.tolist()
     real_game_time = []
     real_game_time.append(0)
-    # print(real_game_time)
     for i in range(0,len(elapsed_time)-1):
         time = real_game_time[i] + elapsed_time[i]
         real_game_time.append(time)
-    # real_game_time = real_game_time[1:len(real_game_time)]
     return real_game_time
 
 

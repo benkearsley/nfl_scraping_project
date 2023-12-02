@@ -18,15 +18,12 @@ def get_drive_table(team, soup):
     team = parent.find('h2').get_text(strip=False)
     team = team.split()
     team = team[0]
-    # print(team)
     if parent:
-        # print('found parent')
         div = parent.find(string=lambda text: isinstance(text, Comment))
         if div:
             comment_soup = BeautifulSoup(str(div), 'html.parser')
             table = comment_soup.find('table', {'id': ids[1]})
             if table:
-                # print('found table')
                 cols = table.find('thead').find('tr')
                 column_headers = [th.get_text(strip=True) for th in cols.find_all('th')]
                 drives = table.find('tbody').find_all('tr')
@@ -94,11 +91,9 @@ def scrape_game_data(game_url):
         'NYJ': 'Jets', 
         'BUF': 'Bills'
     }
-    # scraping 1 game
     pbp_data = []
     # game_url = 'https://www.pro-football-reference.com/boxscores/202309070kan.htm'
     r = requests.get(game_url)
-    # print(f'status: {r.status_code}')
     game_page_soup = BeautifulSoup(r.text, 'html.parser')
     # scraping drive data for home and away team
     home_drives = get_drive_table('home', game_page_soup)
