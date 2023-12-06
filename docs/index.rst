@@ -9,7 +9,8 @@ Welcome to NFL Play By Play Analysis's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   installation_instructions.md
+   installation_instructions
+   readme_link
    modules
 
 
