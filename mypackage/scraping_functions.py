@@ -9,6 +9,34 @@ import cleaning_functions as cf
 
 # functions
 def get_drive_table(team, soup):
+    """
+    Extracts drive data from a BeautifulSoup object for a specific team.
+
+    Parameters
+    ----------
+    team : str
+        The team for which to extract drive data. Should be either 'home' or 'vis'.
+    soup : BeautifulSoup
+        A BeautifulSoup object containing the HTML content.
+
+    Returns
+    -------
+    drives_df : pandas.DataFrame
+        A DataFrame containing the drive data for the specified team.
+
+    Notes
+    -----
+    The function looks for a specific div element with an 'id' attribute corresponding
+    to the team's drives, then extracts drive data from the embedded table.
+
+    Example
+    -------
+    >>> soup = BeautifulSoup(html_content, 'html.parser')
+    >>> home_drives = get_drive_table('home', soup)
+    >>> vis_drives = get_drive_table('vis', soup)
+    """
+
+
     if team == 'home':
         ids = ['all_home_drives', 'home_drives']
     if team == 'vis':
@@ -37,6 +65,33 @@ def get_drive_table(team, soup):
 
 
 def scrape_pbp(game_page_soup):
+    """
+    Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the site `pro-football-reference.com _. Main function called in scrape_game_data() function.
+
+    Parameters
+    ----------
+    game_page_soup : BeautifulSoup
+        A BeautifulSoup object containing the HTML content of the game page.
+
+    Returns
+    -------
+    pbp_datas : pandas.DataFrame
+        A DataFrame containing play-by-play data extracted from the specified game page.
+
+    Notes
+    -----
+    This function specifically targets the 'div' element with class 'table_wrapper' and
+    id 'all_pbp' to locate the play-by-play data. It extracts data from the embedded
+    'table' with id 'pbp'.
+
+    Example
+    -------
+    >>> soup = BeautifulSoup(html_content, 'html.parser')
+    >>> pbp_data = scrape_pbp(soup)
+
+    .. _https://www.pro-football-reference.com/
+    """
+
     pbp_datas = []
     pbp_parent = game_page_soup.find('div', {'class': 'table_wrapper', 'id': 'all_pbp'})
     if pbp_parent:
@@ -57,6 +112,31 @@ def scrape_pbp(game_page_soup):
 
 
 def scrape_game_data(game_url):
+    """
+    Scrape game data from the specified Pro Football Reference game URL.
+
+    Parameters
+    ----------
+    game_url : str
+        The URL of the Pro Football Reference game page to scrape.
+
+    Returns
+    -------
+    pbp_data : pandas.DataFrame
+        A DataFrame containing cleaned play-by-play (PBP) data for the game.
+
+    Notes
+    -----
+    This function extracts drive data for the home and visiting teams, as well as play-by-play
+    (PBP) data, from the specified game URL. It performs data cleaning and transformation,
+    including handling time-related columns and determining possession.
+
+    Example
+    -------
+    >>> url = 'https://www.pro-football-reference.com/boxscores/202309070kan.htm'
+    >>> game_data = scrape_game_data(url)
+    """
+
     team_keys = {
         'DET': 'Lions',
         'KAN': 'Chiefs',
@@ -147,7 +227,35 @@ def scrape_game_data(game_url):
     return pbp_data
 
 
-def scrape_games(game_links=[], data_file_extension ='data', game_file_extension='games'):
+def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='games.csv'):
+    """
+    Scrape game data from a list of Pro Football Reference game URLs and save the results.
+
+    Parameters
+    ----------
+    game_links : list of str, optional
+        List of Pro Football Reference game URLs to scrape. Default is an empty list.
+    data_file_extension : str, optional
+        Extension for the data file CSV. Default is 'data'.
+    game_file_extension : str, optional
+        Extension for the game file CSV. Default is 'games'.
+
+    Returns
+    -------
+    None
+
+    Notes
+    -----
+    This function iterates through the provided list of game links, extracts game and play-by-play data
+    using the `scrape_game_data` function, and saves the cleaned data in CSV files. It introduces a
+    delay of 30 seconds between each scraping operation to avoid overloading the server.
+
+    Example
+    -------
+    >>> game_urls = ['https://www.pro-football-reference.com/boxscores/202309070kan.htm', ...]
+    >>> scrape_games(game_links=game_urls)
+    """
+
     games = {
     'game_id': [], 
     'team1': [], 
@@ -189,6 +297,8 @@ def scrape_games(game_links=[], data_file_extension ='data', game_file_extension
         id = id + 1
         time.sleep(30)
     games_df = pd.DataFrame(games)
-    data.to_csv(f'../data/{data_file_extension}.csv',index=False)
-    games_df.to_csv(f'../data/{game_file_extension}.csv', index=False)
+    data.to_csv(data_file_path,index=False)
+    games_df.to_csv(game_file_path, index=False)
     print('done')
+
+    
