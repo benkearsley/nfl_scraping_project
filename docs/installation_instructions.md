@@ -1,6 +1,6 @@
 # Installation Instructions
 
-These are my installation instructions.
+To install this package, run the followinc command in your terminal:
 
-1. step 1
-2. step 2
+    pip install git+https://github.com/benkearsley/nfl_scraping_project.git
+
