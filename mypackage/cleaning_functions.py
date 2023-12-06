@@ -1,4 +1,6 @@
 import re
+import pandas as pd
+import numpy as np
 
 
 def elapsed_time(time_list):
@@ -172,49 +174,34 @@ def determine_possession(play_start, drives):
     return closest_drive_team
 
 
-def yardage_by_play(play_detail, play_type):
-    """
-    Calculate yardage gained or lost on a play based on play details and type.
+def calculate_yardage(current_yardline, next_yardline):
+    return next_yardline - current_yardline
 
-    Parameters
-    ----------
-    play_detail : str
-        The detailed description of the play.
-    play_type : str
-        The type of play, which can be 'Run' or 'Pass'.
 
-    Returns
-    -------
-    yardage : float
-        The yardage gained or lost on the play. Returns 0 if yardage cannot be determined.
-
-    Notes
-    -----
-    This function calculates the yardage gained or lost on a play based on the provided play details
-    and play type. For 'Run' or 'Pass' plays, it uses a regular expression pattern to find and sum up
-    yardage values from the play details. If no yardage values are found or the play type is not 'Run'
-    or 'Pass', it returns 0.
-
-    Examples
-    --------
-    >>> yardage_by_play('Run for 5 yards', 'Run')
-    5.0
-
-    >>> yardage_by_play('Pass complete for 12 yards', 'Pass')
-    12.0
-
-    >>> yardage_by_play('Incomplete pass', 'Pass')
-    0.0
-    """
-
-    yardage = 0
+def yards_gained(plays):
+    plays = pd.DataFrame(plays).reset_index(drop = True)
     
-    if play_type in ['Run', 'Pass']:
-        # Define a regular expression pattern to find yardage in play_detail
-        pattern = r'(-?\d+\.\d+|-?\d+)'
-        # Use re.findall to find all yardage values that match the pattern
-        yards = re.findall(pattern, play_detail)
-        # If we found yardage values, sum them up
-        if yards:
-            yardage = sum(map(float, yards))
-    return yardage
+    # If the team with the ball is on the opposite side, subtract the yardline from 100
+    plays['yardline'] = np.where(plays['possession'] != plays['field_side'], 100 - plays['yardline'], plays['yardline'])
+
+    yardage_gained_list = []
+
+    for index, row in plays.iterrows():
+        # Check if the play type is 'Run' or 'Pass'
+        if row['Play_Type'] in ['Run', 'Pass']:
+            if row['possession'] != plays['possession'].shift(-1).iloc[index]:
+                # Check if the current and next plays are on the same side of the field
+                if row['field_side'] == plays['field_side'].shift(-1).iloc[index]:
+                    # Update current play's yardline to 100 - yardline
+                    yardline = 100 - row['yardline']
+                else:
+                        yardline = row['yardline']
+            else:
+                yardline = row['yardline']
+
+            yardage_gained = calculate_yardage(yardline, plays['yardline'].shift(-1).iloc[index])
+        else: 
+            yardage_gained = 0.0
+        # Append the calculated yardage gained to the list
+        yardage_gained_list.append(yardage_gained)
+    return yardage_gained_list
