@@ -5,7 +5,7 @@ import numpy as np
 from bs4 import BeautifulSoup, Comment
 import re
 import time
-import cleaning_functions as cf
+from mypackage import cleaning_functions as cf
 
 # functions
 def get_drive_table(team, soup):
