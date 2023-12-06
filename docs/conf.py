@@ -33,10 +33,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 root_doc = 'index.rst'
 
-source_suffix = ['.rst', '.md']
+source_suffix = {'.rst': 'restructuredtext', '.md': 'markdown'}
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'furo'
 html_static_path = ['_static']

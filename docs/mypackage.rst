@@ -12,6 +12,7 @@ mypackage.cleaning\_functions module
    :undoc-members:
    :show-inheritance:
 
+
 mypackage.loading\_functions module
 -----------------------------------
 
@@ -20,6 +21,7 @@ mypackage.loading\_functions module
    :undoc-members:
    :show-inheritance:
 
+
 mypackage.scraping\_functions module
 ------------------------------------
 
@@ -27,6 +29,7 @@ mypackage.scraping\_functions module
    :members:
    :undoc-members:
    :show-inheritance:
+
 
 Module contents
 ---------------
