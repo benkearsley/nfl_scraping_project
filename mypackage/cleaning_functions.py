@@ -175,10 +175,42 @@ def determine_possession(play_start, drives):
 
 
 def calculate_yardage(current_yardline, next_yardline):
+    """
+    Calculate the yardage gained or lost between two yardlines.
+
+    Parameters
+    ----------
+    current_yardline : int
+        The starting yardline.
+    next_yardline : int
+        The ending yardline.
+
+    Returns
+    -------
+    int
+        The yardage gained (positive) or lost (negative) between the two yardlines.
+    """
     return next_yardline - current_yardline
 
 
 def yards_gained(plays):
+    """
+    Calculate the yardage gained or lost for each play in a given set of plays.
+
+    Parameters
+    ----------
+    plays : pandas.DataFrame
+        A DataFrame containing information about each play, including columns:
+        - 'Play_Type': str, the type of play ('Run', 'Pass', etc.).
+        - 'possession': str, the team in possession of the ball.
+        - 'field_side': str, the side of the field where the play occurs.
+        - 'yardline': int, the yardline where the play starts.
+
+    Returns
+    -------
+    yardage_gained_list : list of int
+        A list containing the yardage gained (positive) or lost (negative) for each play.
+    """
     plays = pd.DataFrame(plays).reset_index(drop = True)
     
     # If the team with the ball is on the opposite side, subtract the yardline from 100
