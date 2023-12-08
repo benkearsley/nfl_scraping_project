@@ -66,7 +66,7 @@ def get_drive_table(team, soup):
 
 def scrape_pbp(game_page_soup):
     """
-    Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the pro football reference site. Main function called in scrape_game_data() function.
+    Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the pro football reference site. Main function used in scrape_game_data() function.
 
     Parameters
     ----------
@@ -218,7 +218,8 @@ def scrape_game_data(game_url):
     pbp_data = pbp_data.drop(columns=['minute', 'seconds', 'seconds_ratio','Numeric_time', 'play_time'])
     pbp_data['Play_Type'] = pbp_data['Detail'].apply(cf.play_type)
     pbp_data['possession'] = pbp_data['play_start_time'].apply(lambda play_start: cf.determine_possession(play_start, drives))
-    pbp_data['Yardage'] = pbp_data.apply(lambda row: cf.yardage_by_play(row['Detail'], row['Play_Type']), axis=1)
+    yards_gained = cf.yards_gained(pbp_data)
+    pbp_data['Yardage'] = yards_gained
     pbp_data = pbp_data.rename(columns={pbp_data.columns[5]: team_keys[pbp_data.columns[5]], 
                                     pbp_data.columns[6]: team_keys[pbp_data.columns[6]]})
     

@@ -164,7 +164,7 @@ def determine_possession(play_start, drives):
     >>> determine_possession(600, drives_data)
     None
     """
-
+    
     closest_drive_team = None
     for drive_start, drive_team in zip(drives['drive_start_time'], drives['team']):
             if drive_start <= play_start:
