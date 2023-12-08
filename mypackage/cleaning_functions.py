@@ -165,13 +165,27 @@ def determine_possession(play_start, drives):
     None
     """
     
+    team_data = ['MIA', 'BUF', 'NYJ', 'NWE', 'PHI', 'DAL', 'NYG', 'WAS', 'BAL', 'PIT', 'CLE', 'CIN', 'DET', 'MIN', 'GNB', 'CHI', 'JAX', 'IND', 'HOU',
+                    'TEN', 'ATL','NOR', 'TAM', 'CAR', 'KAN', 'DEN', 'LVR', 'LAC', 'SFO', 'SEA', 'LAR', 'ARI']
+    mascot_data = ['Dolphins', 'Bills', 'Jets', 'Patriots', 'Eagles', 'Cowboys', 'Giants', 'Commanders', 'Ravens', 'Steelers', 'Browns', 'Bengals', 'Lions', 'Vikings', 'Packers', 'Bears',
+                    'Jaguars', 'Colts', 'Texans', 'Titans', 'Falcons', 'Saints', 'Buccaneers', 'Panthers', 'Chiefs', 'Broncos', 'Raiders', 'Chargers', '49ers', 'Seahawks', 'Rams',
+                    'Cardinals']
+
+    teams = pd.DataFrame({'Team' : team_data, 'Mascot' : mascot_data})
+
     closest_drive_team = None
+
     for drive_start, drive_team in zip(drives['drive_start_time'], drives['team']):
             if drive_start <= play_start:
                 closest_drive_team = drive_team
             else:
                 break
-    return closest_drive_team
+
+    for i, mascot in enumerate(teams['Mascot']):
+        if closest_drive_team == mascot :
+            possession = teams['Team'][i]
+            break
+    return possession
 
 
 def calculate_yardage(current_yardline, next_yardline):
