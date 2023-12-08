@@ -220,8 +220,8 @@ def scrape_game_data(game_url):
     pbp_data['possession'] = pbp_data['play_start_time'].apply(lambda play_start: cf.determine_possession(play_start, drives))
     yards_gained = cf.yards_gained(pbp_data)
     pbp_data['Yardage'] = yards_gained
-    pbp_data = pbp_data.rename(columns={pbp_data.columns[5]: team_keys[pbp_data.columns[5]], 
-                                    pbp_data.columns[6]: team_keys[pbp_data.columns[6]]})
+    # pbp_data = pbp_data.rename(columns={pbp_data.columns[5]: team_keys[pbp_data.columns[5]], 
+    #                                 pbp_data.columns[6]: team_keys[pbp_data.columns[6]]})
     
     return pbp_data
 
