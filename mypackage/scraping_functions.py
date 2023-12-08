@@ -66,7 +66,7 @@ def get_drive_table(team, soup):
 
 def scrape_pbp(game_page_soup):
     """
-    Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the site `pro-football-reference.com _. Main function called in scrape_game_data() function.
+    Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the pro football reference site. Main function called in scrape_game_data() function.
 
     Parameters
     ----------
@@ -88,8 +88,6 @@ def scrape_pbp(game_page_soup):
     -------
     >>> soup = BeautifulSoup(html_content, 'html.parser')
     >>> pbp_data = scrape_pbp(soup)
-
-    .. _https://www.pro-football-reference.com/
     """
 
     pbp_datas = []
