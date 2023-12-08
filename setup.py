@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 with open('requirements.txt', 'r') as f:
-    requirements = f.dread().splitlines()
+    requirements = f.read().splitlines()
 
 setup(
     name='nfl_scraping',
