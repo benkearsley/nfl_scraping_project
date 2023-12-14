@@ -372,14 +372,28 @@
 <span class="sd">    &gt;&gt;&gt; determine_possession(600, drives_data)</span>
 <span class="sd">    None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">team_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MIA&#39;</span><span class="p">,</span> <span class="s1">&#39;BUF&#39;</span><span class="p">,</span> <span class="s1">&#39;NYJ&#39;</span><span class="p">,</span> <span class="s1">&#39;NWE&#39;</span><span class="p">,</span> <span class="s1">&#39;PHI&#39;</span><span class="p">,</span> <span class="s1">&#39;DAL&#39;</span><span class="p">,</span> <span class="s1">&#39;NYG&#39;</span><span class="p">,</span> <span class="s1">&#39;WAS&#39;</span><span class="p">,</span> <span class="s1">&#39;BAL&#39;</span><span class="p">,</span> <span class="s1">&#39;PIT&#39;</span><span class="p">,</span> <span class="s1">&#39;CLE&#39;</span><span class="p">,</span> <span class="s1">&#39;CIN&#39;</span><span class="p">,</span> <span class="s1">&#39;DET&#39;</span><span class="p">,</span> <span class="s1">&#39;MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;GNB&#39;</span><span class="p">,</span> <span class="s1">&#39;CHI&#39;</span><span class="p">,</span> <span class="s1">&#39;JAX&#39;</span><span class="p">,</span> <span class="s1">&#39;IND&#39;</span><span class="p">,</span> <span class="s1">&#39;HOU&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;TEN&#39;</span><span class="p">,</span> <span class="s1">&#39;ATL&#39;</span><span class="p">,</span><span class="s1">&#39;NOR&#39;</span><span class="p">,</span> <span class="s1">&#39;TAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CAR&#39;</span><span class="p">,</span> <span class="s1">&#39;KAN&#39;</span><span class="p">,</span> <span class="s1">&#39;DEN&#39;</span><span class="p">,</span> <span class="s1">&#39;LVR&#39;</span><span class="p">,</span> <span class="s1">&#39;LAC&#39;</span><span class="p">,</span> <span class="s1">&#39;SFO&#39;</span><span class="p">,</span> <span class="s1">&#39;SEA&#39;</span><span class="p">,</span> <span class="s1">&#39;LAR&#39;</span><span class="p">,</span> <span class="s1">&#39;ARI&#39;</span><span class="p">]</span>
+    <span class="n">mascot_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dolphins&#39;</span><span class="p">,</span> <span class="s1">&#39;Bills&#39;</span><span class="p">,</span> <span class="s1">&#39;Jets&#39;</span><span class="p">,</span> <span class="s1">&#39;Patriots&#39;</span><span class="p">,</span> <span class="s1">&#39;Eagles&#39;</span><span class="p">,</span> <span class="s1">&#39;Cowboys&#39;</span><span class="p">,</span> <span class="s1">&#39;Giants&#39;</span><span class="p">,</span> <span class="s1">&#39;Commanders&#39;</span><span class="p">,</span> <span class="s1">&#39;Ravens&#39;</span><span class="p">,</span> <span class="s1">&#39;Steelers&#39;</span><span class="p">,</span> <span class="s1">&#39;Browns&#39;</span><span class="p">,</span> <span class="s1">&#39;Bengals&#39;</span><span class="p">,</span> <span class="s1">&#39;Lions&#39;</span><span class="p">,</span> <span class="s1">&#39;Vikings&#39;</span><span class="p">,</span> <span class="s1">&#39;Packers&#39;</span><span class="p">,</span> <span class="s1">&#39;Bears&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Jaguars&#39;</span><span class="p">,</span> <span class="s1">&#39;Colts&#39;</span><span class="p">,</span> <span class="s1">&#39;Texans&#39;</span><span class="p">,</span> <span class="s1">&#39;Titans&#39;</span><span class="p">,</span> <span class="s1">&#39;Falcons&#39;</span><span class="p">,</span> <span class="s1">&#39;Saints&#39;</span><span class="p">,</span> <span class="s1">&#39;Buccaneers&#39;</span><span class="p">,</span> <span class="s1">&#39;Panthers&#39;</span><span class="p">,</span> <span class="s1">&#39;Chiefs&#39;</span><span class="p">,</span> <span class="s1">&#39;Broncos&#39;</span><span class="p">,</span> <span class="s1">&#39;Raiders&#39;</span><span class="p">,</span> <span class="s1">&#39;Chargers&#39;</span><span class="p">,</span> <span class="s1">&#39;49ers&#39;</span><span class="p">,</span> <span class="s1">&#39;Seahawks&#39;</span><span class="p">,</span> <span class="s1">&#39;Rams&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Cardinals&#39;</span><span class="p">]</span>
+
+    <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Team&#39;</span> <span class="p">:</span> <span class="n">team_data</span><span class="p">,</span> <span class="s1">&#39;Mascot&#39;</span> <span class="p">:</span> <span class="n">mascot_data</span><span class="p">})</span>
 
     <span class="n">closest_drive_team</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="k">for</span> <span class="n">drive_start</span><span class="p">,</span> <span class="n">drive_team</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">drives</span><span class="p">[</span><span class="s1">&#39;drive_start_time&#39;</span><span class="p">],</span> <span class="n">drives</span><span class="p">[</span><span class="s1">&#39;team&#39;</span><span class="p">]):</span>
             <span class="k">if</span> <span class="n">drive_start</span> <span class="o">&lt;=</span> <span class="n">play_start</span><span class="p">:</span>
                 <span class="n">closest_drive_team</span> <span class="o">=</span> <span class="n">drive_team</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">break</span>
-    <span class="k">return</span> <span class="n">closest_drive_team</span></div>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mascot</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">teams</span><span class="p">[</span><span class="s1">&#39;Mascot&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">closest_drive_team</span> <span class="o">==</span> <span class="n">mascot</span> <span class="p">:</span>
+            <span class="n">possession</span> <span class="o">=</span> <span class="n">teams</span><span class="p">[</span><span class="s1">&#39;Team&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">possession</span></div>
 
 
 
@@ -451,6 +465,179 @@
         <span class="c1"># Append the calculated yardage gained to the list</span>
         <span class="n">yardage_gained_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yardage_gained</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">yardage_gained_list</span></div>
+
+
+
+<div class="viewcode-block" id="seconds_left">
+<a class="viewcode-back" href="../../mypackage.html#mypackage.cleaning_functions.seconds_left">[docs]</a>
+<span class="k">def</span> <span class="nf">seconds_left</span><span class="p">(</span><span class="n">plays</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the remaining seconds until the specified play start time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plays : pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing information about plays, including the &#39;play_start_time&#39; column.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    seconds_left : int</span>
+<span class="sd">        The number of seconds remaining until the specified play start time.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function assumes that the &#39;play_start_time&#39; column in the &#39;plays&#39; DataFrame represents</span>
+<span class="sd">    the time in minutes, and it calculates the remaining seconds until 60 minutes from the start time.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; plays_data = {&#39;play_start_time&#39;: [45, 50, 55]}</span>
+<span class="sd">    &gt;&gt;&gt; plays_df = pd.DataFrame(plays_data)</span>
+<span class="sd">    &gt;&gt;&gt; seconds_left(plays_df)</span>
+<span class="sd">    900  # 15 minutes (900 seconds) remaining until the specified play start time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seconds_left</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">plays</span><span class="p">[</span><span class="s1">&#39;play_start_time&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">60</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
+    <span class="k">return</span> <span class="n">seconds_left</span></div>
+
+
+
+<div class="viewcode-block" id="score_diff">
+<a class="viewcode-back" href="../../mypackage.html#mypackage.cleaning_functions.score_diff">[docs]</a>
+<span class="k">def</span> <span class="nf">score_diff</span><span class="p">(</span><span class="n">plays</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the score difference between two columns in a plays DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plays : pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing information about plays, with columns representing scores.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Series</span>
+<span class="sd">        A Series containing the calculated score differences.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function assumes that the input DataFrame &#39;plays&#39; has columns at index 5 and index 6</span>
+<span class="sd">    representing numeric scores. It calculates the score difference as the difference between</span>
+<span class="sd">    the values in these two columns, converting them to float.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; plays_data = {&#39;Score_A&#39;: [20, 25, 30], &#39;Score_B&#39;: [15, 22, 28]}</span>
+<span class="sd">    &gt;&gt;&gt; plays_df = pd.DataFrame(plays_data)</span>
+<span class="sd">    &gt;&gt;&gt; score_diff(plays_df)</span>
+<span class="sd">    0    5.0</span>
+<span class="sd">    1    3.0</span>
+<span class="sd">    2    2.0</span>
+<span class="sd">    dtype: float64</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">plays</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">-</span> <span class="n">plays</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="adjusted_score_calc">
+<a class="viewcode-back" href="../../mypackage.html#mypackage.cleaning_functions.adjusted_score_calc">[docs]</a>
+<span class="k">def</span> <span class="nf">adjusted_score_calc</span><span class="p">(</span><span class="n">plays</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate adjusted scores based on the score difference and remaining time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plays : pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing information about plays, including &#39;score_diff&#39; and &#39;seconds_left&#39; columns.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    adjusted_score : pandas.Series</span>
+<span class="sd">        A Series containing the calculated adjusted scores.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function calculates adjusted scores using the formula:</span>
+<span class="sd">        adjusted_score = score_diff / ((seconds_left) + 1) ** gamma</span>
+
+<span class="sd">    where &#39;score_diff&#39; is the difference between two scores, &#39;seconds_left&#39; is the time remaining,</span>
+<span class="sd">    and &#39;gamma&#39; is a constant (default value: 0.5).</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; plays_data = {&#39;score_diff&#39;: [5, 3, 2], &#39;seconds_left&#39;: [900, 1200, 600]}</span>
+<span class="sd">    &gt;&gt;&gt; plays_df = pd.DataFrame(plays_data)</span>
+<span class="sd">    &gt;&gt;&gt; adjusted_score_calc(plays_df)</span>
+<span class="sd">    0    0.01111</span>
+<span class="sd">    1    0.00083</span>
+<span class="sd">    2    0.02857</span>
+<span class="sd">    dtype: float64</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">.5</span>
+
+    <span class="n">adjusted_score</span> <span class="o">=</span> <span class="n">plays</span><span class="p">[</span><span class="s1">&#39;score_diff&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">((</span><span class="n">plays</span><span class="p">[</span><span class="s1">&#39;seconds_left&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">gamma</span>
+
+    <span class="k">return</span> <span class="n">adjusted_score</span></div>
+
+
+
+<div class="viewcode-block" id="win">
+<a class="viewcode-back" href="../../mypackage.html#mypackage.cleaning_functions.win">[docs]</a>
+<span class="k">def</span> <span class="nf">win</span><span class="p">(</span><span class="n">plays</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine the winning team at the end of plays and create a binary list indicating possession.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plays : pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing information about plays, including team possession.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Y : list</span>
+<span class="sd">        A binary list indicating possession at the end of each play (1 for the winning team, 0 otherwise).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function determines the winning team based on the scores at the end of the plays. It creates</span>
+<span class="sd">    a binary list where each element represents possession at the end of a play (1 for the winning team,</span>
+<span class="sd">    0 for the other team).</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; plays_data = {&#39;home_team_score&#39;: [20, 25, 30], &#39;visiting_team_score&#39;: [15, 22, 28], &#39;possession&#39;: [&#39;Home&#39;, &#39;Visiting&#39;, &#39;Home&#39;]}</span>
+<span class="sd">    &gt;&gt;&gt; plays_df = pd.DataFrame(plays_data)</span>
+<span class="sd">    &gt;&gt;&gt; win(plays_df)</span>
+<span class="sd">    [1, 0, 1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#plays = pd.DataFrame(plays)</span>
+    <span class="n">winning_team</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Get the column names dynamically</span>
+    <span class="n">home_team</span> <span class="o">=</span> <span class="n">plays</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">vis_team</span> <span class="o">=</span> <span class="n">plays</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+    <span class="n">Y</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Compare who is the winning team</span>
+    <span class="k">if</span> <span class="n">plays</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">plays</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]:</span>
+        <span class="n">winning_team</span> <span class="o">=</span> <span class="n">vis_team</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">winning_team</span> <span class="o">=</span> <span class="n">home_team</span>
+        
+
+    <span class="c1"># Figure out who is winning at the end</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">play</span> <span class="ow">in</span> <span class="n">plays</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">play</span><span class="p">[</span><span class="s1">&#39;possession&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">winning_team</span><span class="p">:</span>
+            <span class="n">Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        
+    
+    <span class="k">return</span> <span class="n">Y</span></div>
+
 
 </pre></div>
         </article>

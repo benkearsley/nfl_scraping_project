@@ -204,6 +204,41 @@
 <section id="module-mypackage.cleaning_functions">
 <span id="mypackage-cleaning-functions-module"></span><h2>mypackage.cleaning_functions module<a class="headerlink" href="#module-mypackage.cleaning_functions" title="Link to this heading">#</a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="mypackage.cleaning_functions.adjusted_score_calc">
+<span class="sig-prename descclassname"><span class="pre">mypackage.cleaning_functions.</span></span><span class="sig-name descname"><span class="pre">adjusted_score_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/cleaning_functions.html#adjusted_score_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.cleaning_functions.adjusted_score_calc" title="Link to this definition">#</a></dt>
+<dd><p>Calculate adjusted scores based on the score difference and remaining time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plays</strong> (<em>pandas.DataFrame</em>) – A DataFrame containing information about plays, including ‘score_diff’ and ‘seconds_left’ columns.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>adjusted_score</strong> – A Series containing the calculated adjusted scores.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>This function calculates adjusted scores using the formula:</dt><dd><p>adjusted_score = score_diff / ((seconds_left) + 1) ** gamma</p>
+</dd>
+</dl>
+<p>where ‘score_diff’ is the difference between two scores, ‘seconds_left’ is the time remaining,
+and ‘gamma’ is a constant (default value: 0.5).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;score_diff&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;seconds_left&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">900</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">600</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">plays_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adjusted_score_calc</span><span class="p">(</span><span class="n">plays_df</span><span class="p">)</span>
+<span class="go">0    0.01111</span>
+<span class="go">1    0.00083</span>
+<span class="go">2    0.02857</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mypackage.cleaning_functions.calculate_yardage">
 <span class="sig-prename descclassname"><span class="pre">mypackage.cleaning_functions.</span></span><span class="sig-name descname"><span class="pre">calculate_yardage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_yardline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_yardline</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/cleaning_functions.html#calculate_yardage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.cleaning_functions.calculate_yardage" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the yardage gained or lost between two yardlines.</p>
@@ -355,6 +390,95 @@ teams plays. If none of these conditions are met, it assumes a running play.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="mypackage.cleaning_functions.score_diff">
+<span class="sig-prename descclassname"><span class="pre">mypackage.cleaning_functions.</span></span><span class="sig-name descname"><span class="pre">score_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/cleaning_functions.html#score_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.cleaning_functions.score_diff" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the score difference between two columns in a plays DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plays</strong> (<em>pandas.DataFrame</em>) – A DataFrame containing information about plays, with columns representing scores.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Series containing the calculated score differences.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function assumes that the input DataFrame ‘plays’ has columns at index 5 and index 6
+representing numeric scores. It calculates the score difference as the difference between
+the values in these two columns, converting them to float.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Score_A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="s1">&#39;Score_B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">28</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">plays_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">score_diff</span><span class="p">(</span><span class="n">plays_df</span><span class="p">)</span>
+<span class="go">0    5.0</span>
+<span class="go">1    3.0</span>
+<span class="go">2    2.0</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mypackage.cleaning_functions.seconds_left">
+<span class="sig-prename descclassname"><span class="pre">mypackage.cleaning_functions.</span></span><span class="sig-name descname"><span class="pre">seconds_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/cleaning_functions.html#seconds_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.cleaning_functions.seconds_left" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the remaining seconds until the specified play start time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plays</strong> (<em>pandas.DataFrame</em>) – A DataFrame containing information about plays, including the ‘play_start_time’ column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>seconds_left</strong> – The number of seconds remaining until the specified play start time.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function assumes that the ‘play_start_time’ column in the ‘plays’ DataFrame represents
+the time in minutes, and it calculates the remaining seconds until 60 minutes from the start time.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;play_start_time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">55</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">plays_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seconds_left</span><span class="p">(</span><span class="n">plays_df</span><span class="p">)</span>
+<span class="go">900  # 15 minutes (900 seconds) remaining until the specified play start time.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mypackage.cleaning_functions.win">
+<span class="sig-prename descclassname"><span class="pre">mypackage.cleaning_functions.</span></span><span class="sig-name descname"><span class="pre">win</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/cleaning_functions.html#win"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.cleaning_functions.win" title="Link to this definition">#</a></dt>
+<dd><p>Determine the winning team at the end of plays and create a binary list indicating possession.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plays</strong> (<em>pandas.DataFrame</em>) – A DataFrame containing information about plays, including team possession.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Y</strong> – A binary list indicating possession at the end of each play (1 for the winning team, 0 otherwise).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function determines the winning team based on the scores at the end of the plays. It creates
+a binary list where each element represents possession at the end of a play (1 for the winning team,
+0 for the other team).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;home_team_score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="s1">&#39;visiting_team_score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span> <span class="s1">&#39;possession&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Home&#39;</span><span class="p">,</span> <span class="s1">&#39;Visiting&#39;</span><span class="p">,</span> <span class="s1">&#39;Home&#39;</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">plays_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">win</span><span class="p">(</span><span class="n">plays_df</span><span class="p">)</span>
+<span class="go">[1, 0, 1]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mypackage.cleaning_functions.yards_gained">
 <span class="sig-prename descclassname"><span class="pre">mypackage.cleaning_functions.</span></span><span class="sig-name descname"><span class="pre">yards_gained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/cleaning_functions.html#yards_gained"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.cleaning_functions.yards_gained" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the yardage gained or lost for each play in a given set of plays.</p>
@@ -381,7 +505,30 @@ teams plays. If none of these conditions are met, it assumes a running play.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mypackage.loading_functions.load_data">
 <span class="sig-prename descclassname"><span class="pre">mypackage.loading_functions.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'games'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/loading_functions.html#load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.loading_functions.load_data" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Load data from a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Specifies the type of data to load. Default is ‘games’.
+If ‘games’, the function loads game data.
+If ‘plays’, the function loads play data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the loaded data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NameError</strong> – If the provided <cite>name</cite> is not recognized. The only valid names
+    are ‘games’ and ‘plays’.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">games_data</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">()</span>  <span class="c1"># Load game data by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plays_data</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;plays&#39;</span><span class="p">)</span>  <span class="c1"># Load play data explicitly</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </section>
 <section id="module-mypackage.scraping_functions">
@@ -471,7 +618,7 @@ delay of 30 seconds between each scraping operation to avoid overloading the ser
 <dl class="py function">
 <dt class="sig sig-object py" id="mypackage.scraping_functions.scrape_pbp">
 <span class="sig-prename descclassname"><span class="pre">mypackage.scraping_functions.</span></span><span class="sig-name descname"><span class="pre">scrape_pbp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_page_soup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/scraping_functions.html#scrape_pbp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.scraping_functions.scrape_pbp" title="Link to this definition">#</a></dt>
-<dd><p>Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the site <a href="#id1"><span class="problematic" id="id2">`</span></a>pro-football-reference.com _. Main function called in scrape_game_data() function.</p>
+<dd><p>Scrape play-by-play (PBP) data from a BeautifulSoup object representing a game page from the pro football reference site. Main function used in scrape_game_data() function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>game_page_soup</strong> (<em>BeautifulSoup</em>) – A BeautifulSoup object containing the HTML content of the game page.</p>
@@ -492,6 +639,58 @@ id ‘all_pbp’ to locate the play-by-play data. It extracts data from the embe
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pbp_data</span> <span class="o">=</span> <span class="n">scrape_pbp</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+</section>
+<section id="module-mypackage.predict_functions">
+<span id="mypackage-predict-functions-module"></span><h2>mypackage.predict_functions module<a class="headerlink" href="#module-mypackage.predict_functions" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mypackage.predict_functions.predict_wins">
+<span class="sig-prename descclassname"><span class="pre">mypackage.predict_functions.</span></span><span class="sig-name descname"><span class="pre">predict_wins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_estimators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">400</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mypackage/predict_functions.html#predict_wins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mypackage.predict_functions.predict_wins" title="Link to this definition">#</a></dt>
+<dd><p>Train a Random Forest classifier on the provided training data and predict
+the outcome of wins on the given test data.</p>
+<p>Dataframes input as test_data or train_data must fit a certain format,
+namely that output by the the scraping functions scrape_game_data function.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>test_data<span class="classifier">pandas.DataFrame</span></dt><dd><p>DataFrame containing the test data.</p>
+</dd>
+<dt>train_data<span class="classifier">pandas.DataFrame</span></dt><dd><p>DataFrame containing the training data.</p>
+</dd>
+<dt>n_estimators<span class="classifier">int, optional, default: 400</span></dt><dd><p>The number of trees in the forest.</p>
+</dd>
+<dt>random_state<span class="classifier">int, optional, default: 42</span></dt><dd><p>Controls the randomness of the estimator.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing the accuracy score of the predictions and a DataFrame
+with additional information including actual and predicted values.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes:<a class="headerlink" href="#notes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The function performs data preprocessing on both training and test data,
+including dropping rows with missing values, creating new features, and
+converting categorical variables into dummy variables.</p></li>
+<li><p>It uses a RandomForestClassifier for prediction with specified <cite>n_estimators</cite>
+and <cite>random_state</cite>.</p></li>
+<li><p>The accuracy of the predictions is calculated using accuracy_score from scikit-learn.</p></li>
+</ul>
+</section>
+<section id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy</span><span class="p">,</span> <span class="n">post_data</span> <span class="o">=</span> <span class="n">predict_wins</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">post_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 </section>
@@ -550,11 +749,15 @@ id ‘all_pbp’ to locate the play-by-play data. It extracts data from the embe
 <li><a class="reference internal" href="#">mypackage package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-mypackage.cleaning_functions">mypackage.cleaning_functions module</a><ul>
+<li><a class="reference internal" href="#mypackage.cleaning_functions.adjusted_score_calc"><code class="docutils literal notranslate"><span class="pre">adjusted_score_calc()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.cleaning_functions.calculate_yardage"><code class="docutils literal notranslate"><span class="pre">calculate_yardage()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.cleaning_functions.determine_possession"><code class="docutils literal notranslate"><span class="pre">determine_possession()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.cleaning_functions.elapsed_time"><code class="docutils literal notranslate"><span class="pre">elapsed_time()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.cleaning_functions.game_time"><code class="docutils literal notranslate"><span class="pre">game_time()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.cleaning_functions.play_type"><code class="docutils literal notranslate"><span class="pre">play_type()</span></code></a></li>
+<li><a class="reference internal" href="#mypackage.cleaning_functions.score_diff"><code class="docutils literal notranslate"><span class="pre">score_diff()</span></code></a></li>
+<li><a class="reference internal" href="#mypackage.cleaning_functions.seconds_left"><code class="docutils literal notranslate"><span class="pre">seconds_left()</span></code></a></li>
+<li><a class="reference internal" href="#mypackage.cleaning_functions.win"><code class="docutils literal notranslate"><span class="pre">win()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.cleaning_functions.yards_gained"><code class="docutils literal notranslate"><span class="pre">yards_gained()</span></code></a></li>
 </ul>
 </li>
@@ -567,6 +770,10 @@ id ‘all_pbp’ to locate the play-by-play data. It extracts data from the embe
 <li><a class="reference internal" href="#mypackage.scraping_functions.scrape_game_data"><code class="docutils literal notranslate"><span class="pre">scrape_game_data()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.scraping_functions.scrape_games"><code class="docutils literal notranslate"><span class="pre">scrape_games()</span></code></a></li>
 <li><a class="reference internal" href="#mypackage.scraping_functions.scrape_pbp"><code class="docutils literal notranslate"><span class="pre">scrape_pbp()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-mypackage.predict_functions">mypackage.predict_functions module</a><ul>
+<li><a class="reference internal" href="#mypackage.predict_functions.predict_wins"><code class="docutils literal notranslate"><span class="pre">predict_wins()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-mypackage">Module contents</a></li>

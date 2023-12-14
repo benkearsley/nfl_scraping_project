@@ -196,18 +196,46 @@
         <article role="main">
           <h1>Source code for mypackage.loading_functions</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
 
 <div class="viewcode-block" id="load_data">
 <a class="viewcode-back" href="../../mypackage.html#mypackage.loading_functions.load_data">[docs]</a>
 <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;games&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load data from a CSV file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str, optional</span>
+<span class="sd">        Specifies the type of data to load. Default is &#39;games&#39;.</span>
+<span class="sd">        If &#39;games&#39;, the function loads game data.</span>
+<span class="sd">        If &#39;plays&#39;, the function loads play data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing the loaded data.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NameError</span>
+<span class="sd">        If the provided `name` is not recognized. The only valid names</span>
+<span class="sd">        are &#39;games&#39; and &#39;plays&#39;.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; games_data = load_data()  # Load game data by default</span>
+<span class="sd">    &gt;&gt;&gt; plays_data = load_data(name=&#39;plays&#39;)  # Load play data explicitly</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;games&#39;</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;../data/week_10_2023_games.csv&#39;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;data/week_1_2023_games.csv&#39;</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;plays&#39;</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;../data/week_10_2023_plays.csv&#39;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;data/week_1_2023_plays.csv&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">-is-not-recognized. -The-only-names-are-&#39;games&#39;-and-&#39;data&#39;.&quot;</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;mypackage&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

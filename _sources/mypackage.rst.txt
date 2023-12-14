@@ -31,6 +31,16 @@ mypackage.scraping\_functions module
    :show-inheritance:
 
 
+mypackage.predict\_functions module
+------------------------------------
+
+.. automodule:: mypackage.predict_functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
 Module contents
 ---------------
 
