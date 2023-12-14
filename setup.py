@@ -18,6 +18,7 @@ setup(
     install_requires=requirements,
     long_description=long_description,
     long_description_content_type='text/markdown',
-    exclude=['Game Data Collection.ipynb']
+    exclude=['Game Data Collection.ipynb'],
+    package_data = {'mypackage': ['data/*.csv']}
 )
 

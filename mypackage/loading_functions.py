@@ -1,4 +1,5 @@
 import pandas as pd
+import pkg_resources
 
 def load_data(name = 'games'):
     """
@@ -28,10 +29,11 @@ def load_data(name = 'games'):
     >>> plays_data = load_data(name='plays')  # Load play data explicitly
     """
     if name == 'games':
-        path = '../data/week_1_2023_games.csv'
+        path = 'data/week_1_2023_games.csv'
     elif name == 'plays':
-        path = '../data/week_1_2023_plays.csv'
+        path = 'data/week_1_2023_plays.csv'
     else:
         raise NameError(f"{name}-is-not-recognized. -The-only-names-are-'games'-and-'data'.")
     
-    return pd.read_csv(path)
+    data_path = pkg_resources.resource_filename('mypackage', path)
+    return pd.read_csv(data_path)
