@@ -10,7 +10,7 @@ with open('requirements.txt', 'r') as f:
 setup(
     name='nfl_scraping',
     version='0.0.1',
-    descrption='Package-for-doing-NFL-play-by-play-analysis',
+    description='Package-for-doing-NFL-play-by-play-analysis',
     author='Benjamin-Kearsley-&-Zayne-Maughan',
     author_email='ben.kearsley@outlook.com',
     url='https://github.com/benkearsley/nfl_scraping_project.git',
