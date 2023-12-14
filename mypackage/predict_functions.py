@@ -7,8 +7,46 @@ from mypackage import cleaning_functions as cf
 from mypackage import scraping_functions as sf
 
 
-def predict_wins(test_data, train_data):
+def predict_wins(test_data, train_data, n_estimators=400, random_state=42):
+    """
+    Train a Random Forest classifier on the provided training data and predict
+    the outcome of wins on the given test data.
 
+    Dataframes input as test_data or train_data must fit a certain format,
+    namely that output by the the scraping functions scrape_game_data function.
+
+    Parameters:
+    -----------
+    test_data : pandas.DataFrame
+        DataFrame containing the test data.
+    train_data : pandas.DataFrame
+        DataFrame containing the training data.
+    n_estimators : int, optional, default: 400
+        The number of trees in the forest.
+    random_state : int, optional, default: 42
+        Controls the randomness of the estimator.
+
+    Returns:
+    --------
+    tuple
+        A tuple containing the accuracy score of the predictions and a DataFrame
+        with additional information including actual and predicted values.
+
+    Notes:
+    ------
+    - The function performs data preprocessing on both training and test data,
+      including dropping rows with missing values, creating new features, and
+      converting categorical variables into dummy variables.
+    - It uses a RandomForestClassifier for prediction with specified `n_estimators`
+      and `random_state`.
+    - The accuracy of the predictions is calculated using accuracy_score from scikit-learn.
+
+    Example:
+    --------
+    >>> accuracy, post_data = predict_wins(test_data, train_data, n_estimators=500, random_state=0)
+    >>> print(f'Accuracy: {accuracy}')
+    >>> print(post_data.head())
+    """
     # Prepare Training Data
     train_data = train_data.dropna(subset=['Down'])
     train_data = train_data[train_data['Down'] != '']
@@ -68,7 +106,7 @@ def predict_wins(test_data, train_data):
     y = y.apply(lambda x:float( x[0]))
     new_data = new_data.fillna(0)
 
-    rf_classifier = RandomForestClassifier(n_estimators=400, random_state=42)
+    rf_classifier = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
     rf_classifier.fit(train_data, y_train)
     y_pred = rf_classifier.predict(new_data)
     accuracy = accuracy_score(y, y_pred)
