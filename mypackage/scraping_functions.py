@@ -211,6 +211,7 @@ def scrape_game_data(game_url):
     pbp_data['Quarter'] = pbp_data['Quarter']
     pbp_data['Quarter'] = [x if x != 'OT' else int(5) for x in pbp_data['Quarter']]
     pbp_data['field_side'] = pbp_data['Location'].str.extract(r'([A-Z]+)')
+    pbp_data['field_side'] = [home_vis[team_keys[x]] if x == teams[0] else home_vis[team_keys[x]] for x in pbp_data['field_side']]
     pbp_data['yardline'] = pbp_data['Location'].str.extract(r'([0-9]+)')
     pbp_data['yardline'] = pbp_data['yardline'].astype(int)
     pbp_data['minute'] = pbp_data['Time'].str.extract(r'([0-9]+):').astype(int)
@@ -222,6 +223,7 @@ def scrape_game_data(game_url):
     pbp_data = pbp_data.drop(columns=['minute', 'seconds', 'seconds_ratio','Numeric_time', 'play_time'])
     pbp_data['Play_Type'] = pbp_data['Detail'].apply(cf.play_type)
     pbp_data['possession'] = pbp_data['play_start_time'].apply(lambda play_start: cf.determine_possession(play_start, drives))
+    pbp_data['possession'] = [home_vis[team_keys[x]] if x == teams[0] else home_vis[team_keys[x]] for x in pbp_data['possession']]
     yards_gained = cf.yards_gained(pbp_data)
     pbp_data['Yardage'] = yards_gained
     pbp_data = pbp_data.rename(columns={pbp_data.columns[5]: home_vis[team_keys[pbp_data.columns[5]]], 
@@ -272,8 +274,8 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
         'Down': [], 
         'ToGo': [], 
         'Location': [], 
-        'Away': [], 
-        'Home': [], 
+        'away': [], 
+        'home': [], 
         'Detail': [], 
         'EPB': [],
         'EPA': [], 
@@ -298,7 +300,7 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
         games['link'].append(link)
         data = pd.concat([data, game_data], axis=0)
         id = id + 1
-        time.sleep(15)
+        time.sleep(10)
     games_df = pd.DataFrame(games)
     data.to_csv(data_file_path,index=False)
     games_df.to_csv(game_file_path, index=False)
