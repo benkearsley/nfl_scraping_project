@@ -251,3 +251,164 @@ def yards_gained(plays):
         # Append the calculated yardage gained to the list
         yardage_gained_list.append(yardage_gained)
     return yardage_gained_list
+
+
+def seconds_left(plays):
+    """
+    Calculate the remaining seconds until the specified play start time.
+
+    Parameters
+    ----------
+    plays : pandas.DataFrame
+        A DataFrame containing information about plays, including the 'play_start_time' column.
+
+    Returns
+    -------
+    seconds_left : int
+        The number of seconds remaining until the specified play start time.
+
+    Notes
+    -----
+    This function assumes that the 'play_start_time' column in the 'plays' DataFrame represents
+    the time in minutes, and it calculates the remaining seconds until 60 minutes from the start time.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> plays_data = {'play_start_time': [45, 50, 55]}
+    >>> plays_df = pd.DataFrame(plays_data)
+    >>> seconds_left(plays_df)
+    900  # 15 minutes (900 seconds) remaining until the specified play start time.
+    """
+    seconds_left = abs(plays['play_start_time'] - 60) * 60
+    return seconds_left
+
+
+def score_diff(plays):
+    """
+    Calculate the score difference between two columns in a plays DataFrame.
+
+    Parameters
+    ----------
+    plays : pandas.DataFrame
+        A DataFrame containing information about plays, with columns representing scores.
+
+    Returns
+    -------
+    pandas.Series
+        A Series containing the calculated score differences.
+
+    Notes
+    -----
+    This function assumes that the input DataFrame 'plays' has columns at index 5 and index 6
+    representing numeric scores. It calculates the score difference as the difference between
+    the values in these two columns, converting them to float.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> plays_data = {'Score_A': [20, 25, 30], 'Score_B': [15, 22, 28]}
+    >>> plays_df = pd.DataFrame(plays_data)
+    >>> score_diff(plays_df)
+    0    5.0
+    1    3.0
+    2    2.0
+    dtype: float64
+    """
+    return plays.iloc[:,5].astype(float) - plays.iloc[:,6].astype(float)
+
+
+def adjusted_score_calc(plays):
+    """
+    Calculate adjusted scores based on the score difference and remaining time.
+
+    Parameters
+    ----------
+    plays : pandas.DataFrame
+        A DataFrame containing information about plays, including 'score_diff' and 'seconds_left' columns.
+
+    Returns
+    -------
+    adjusted_score : pandas.Series
+        A Series containing the calculated adjusted scores.
+
+    Notes
+    -----
+    This function calculates adjusted scores using the formula:
+        adjusted_score = score_diff / ((seconds_left) + 1) ** gamma
+
+    where 'score_diff' is the difference between two scores, 'seconds_left' is the time remaining,
+    and 'gamma' is a constant (default value: 0.5).
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> plays_data = {'score_diff': [5, 3, 2], 'seconds_left': [900, 1200, 600]}
+    >>> plays_df = pd.DataFrame(plays_data)
+    >>> adjusted_score_calc(plays_df)
+    0    0.01111
+    1    0.00083
+    2    0.02857
+    dtype: float64
+    """
+    gamma = .5
+
+    adjusted_score = plays['score_diff'] / ((plays['seconds_left']) + 1) ** gamma
+
+    return adjusted_score
+
+
+def win(plays):
+    """
+    Determine the winning team at the end of plays and create a binary list indicating possession.
+
+    Parameters
+    ----------
+    plays : pandas.DataFrame
+        A DataFrame containing information about plays, including team possession.
+
+    Returns
+    -------
+    Y : list
+        A binary list indicating possession at the end of each play (1 for the winning team, 0 otherwise).
+
+    Notes
+    -----
+    This function determines the winning team based on the scores at the end of the plays. It creates
+    a binary list where each element represents possession at the end of a play (1 for the winning team,
+    0 for the other team).
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> plays_data = {'home_team_score': [20, 25, 30], 'visiting_team_score': [15, 22, 28], 'possession': ['Home', 'Visiting', 'Home']}
+    >>> plays_df = pd.DataFrame(plays_data)
+    >>> win(plays_df)
+    [1, 0, 1]
+    """
+    #plays = pd.DataFrame(plays)
+    winning_team = None
+
+    # Get the column names dynamically
+    home_team = plays.columns[6]
+    vis_team = plays.columns[5]
+
+    Y = []
+
+    # Compare who is the winning team
+    if plays.iloc[-1, 5] >= plays.iloc[-1, 6]:
+        winning_team = vis_team
+    else:
+        winning_team = home_team
+        
+
+    # Figure out who is winning at the end
+    for _, play in plays.iterrows():
+        if play['possession'] == winning_team:
+            Y.append(1)
+        else:
+            Y.append(0)
+        
+    
+    return Y
+

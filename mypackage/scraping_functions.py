@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup, Comment
 import re
 import time
 from mypackage import cleaning_functions as cf
+from math import inf
 
 # functions
 def get_drive_table(team, soup):
@@ -170,7 +171,7 @@ def scrape_game_data(game_url):
         'BUF': 'Bills'
     }
     pbp_data = []
-    # game_url = 'https://www.pro-football-reference.com/boxscores/202309070kan.htm'
+    # game_url = 'https://www.pro-football-reference.com/boxscores/202309110nyj.htm'
     r = requests.get(game_url)
     game_page_soup = BeautifulSoup(r.text, 'html.parser')
     # scraping drive data for home and away team
@@ -179,6 +180,8 @@ def scrape_game_data(game_url):
     # getting home and away team variables
     home_team = home_drives['team'][0]
     vis_team = vis_drives['team'][0]
+    home_vis = {home_team: 'home', vis_team: 'away'}
+
     teams = [home_team, vis_team]
     drives = pd.concat([home_drives, vis_drives], axis=0)
     drives['Quarter'] = drives['Quarter'].astype(int)
@@ -205,7 +208,8 @@ def scrape_game_data(game_url):
     pbp_data = pbp_data.dropna(subset=['Location'])
     print(f'{home_team} vs. {vis_team} \n total plays: {len(pbp_data)}')
     # General Cleaning
-    pbp_data['Quarter'] = pbp_data['Quarter'].astype(int)
+    pbp_data['Quarter'] = pbp_data['Quarter']
+    pbp_data['Quarter'] = [x if x != 'OT' else int(5) for x in pbp_data['Quarter']]
     pbp_data['field_side'] = pbp_data['Location'].str.extract(r'([A-Z]+)')
     pbp_data['yardline'] = pbp_data['Location'].str.extract(r'([0-9]+)')
     pbp_data['yardline'] = pbp_data['yardline'].astype(int)
@@ -220,8 +224,8 @@ def scrape_game_data(game_url):
     pbp_data['possession'] = pbp_data['play_start_time'].apply(lambda play_start: cf.determine_possession(play_start, drives))
     yards_gained = cf.yards_gained(pbp_data)
     pbp_data['Yardage'] = yards_gained
-    # pbp_data = pbp_data.rename(columns={pbp_data.columns[5]: team_keys[pbp_data.columns[5]], 
-    #                                 pbp_data.columns[6]: team_keys[pbp_data.columns[6]]})
+    pbp_data = pbp_data.rename(columns={pbp_data.columns[5]: home_vis[team_keys[pbp_data.columns[5]]], 
+                                    pbp_data.columns[6]: home_vis[team_keys[pbp_data.columns[6]]]})
     
     return pbp_data
 
@@ -257,8 +261,8 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
 
     games = {
     'game_id': [], 
-    'team1': [], 
-    'team2': [],
+    # 'team1': [], 
+    # 'team2': [],
     'link': []
     }
 
@@ -268,8 +272,8 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
         'Down': [], 
         'ToGo': [], 
         'Location': [], 
-        'Lions': [], 
-        'Chiefs': [], 
+        'Away': [], 
+        'Home': [], 
         'Detail': [], 
         'EPB': [],
         'EPA': [], 
@@ -280,21 +284,21 @@ def scrape_games(game_links=[], data_file_path ='data.csv', game_file_path='game
         'posession': [], 
         'Yardage': []
                     })
-    
+    id = 1
     for link in game_links:
         game_data = scrape_game_data(link)
         game_data['game_id'] = id
         team1 = game_data.columns[5]
         team2 = game_data.columns[6]
-        game_data = game_data.rename(columns={game_data.columns[5]: 'team1', 
-                                    game_data.columns[6]: 'team2'})
+        # game_data = game_data.rename(columns={game_data.columns[5]: 'team1', 
+        #                             game_data.columns[6]: 'team2'})
         games['game_id'].append(id)
-        games['team1'].append(team1)
-        games['team2'].append(team2)
+        # games['team1'].append(team1)
+        # games['team2'].append(team2)
         games['link'].append(link)
         data = pd.concat([data, game_data], axis=0)
         id = id + 1
-        time.sleep(30)
+        time.sleep(15)
     games_df = pd.DataFrame(games)
     data.to_csv(data_file_path,index=False)
     games_df.to_csv(game_file_path, index=False)
