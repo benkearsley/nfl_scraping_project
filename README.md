@@ -22,7 +22,7 @@ This module contains our attempt to forecast game win probability.  This module 
 
 This module contains functions to load the prescraped data in the package.
 
-Contained in this package is also a prescraped set of game data from Week 1 of the 2023 NFL season.
+Contained in this package is also a prescraped set of game data from Week 1 of the 2023 NFL season.[^2]
 
 ## Documentation
 Documentation for this package can be found [here](https://benkearsley.github.io/nfl_scraping_project/).
@@ -47,3 +47,4 @@ For details, see the [LICENSE](https://github.com/benkearsley/nfl_scraping_proje
 Feel free to contact me at [ben.kearsley@outlook.com](mailto:ben.kearsley@outlook.com)
 
 [^1]: Pro Football Reference. https://www.pro-football-reference.com/. Accessed 12/14/2023
+[^2]: Raw data files are not included in this package because they are scraped directly from the Pro Football Reference site. The game_links found in the [clean_data.py](https://github.com/benkearsley/nfl_scraping_project/blob/main/nflscraping/clean_data.py) file contain the 'raw' data and they are static and should not change with time.
