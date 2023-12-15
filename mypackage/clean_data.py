@@ -11,7 +11,6 @@ https://benkearsley.github.io/nfl_scraping_project/
 
 if __name__ == '__main__':
     import scraping_functions as sf
-    import cleaning_functions as cf
 
     game_links = [
     'https://www.pro-football-reference.com/boxscores/202309110nyj.htm',
