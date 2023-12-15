@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation Instructions" href="installation_instructions.html" /><link rel="prev" title="Welcome to NFL Play By Play Analysis’s documentation!" href="index.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>README - NFL Play By Play Analysis 0.0.1 documentation</title>
+        <title>NFL Play by Play Scraping Analysis - NFL Play By Play Analysis 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -156,7 +156,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">README</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">NFL Play by Play Scraping Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation_instructions.html">Installation Instructions</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">mypackage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of mypackage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="mypackage.html">mypackage package</a></li>
@@ -196,28 +196,66 @@
           </label>
         </div>
         <article role="main">
-          <section id="readme">
-<h1>README<a class="headerlink" href="#readme" title="Link to this heading">#</a></h1>
+          <section id="nfl-play-by-play-scraping-analysis">
+<h1>NFL Play by Play Scraping Analysis<a class="headerlink" href="#nfl-play-by-play-scraping-analysis" title="Link to this heading">#</a></h1>
+<p><em>by Ben Kearsley &amp; Zayne Maughan</em></p>
 <section id="project-description">
 <h2>Project Description<a class="headerlink" href="#project-description" title="Link to this heading">#</a></h2>
+<p>This package is for performing analysis of plays from NFL games, and was inspired by ESPN’s win prediction algorithm.  Getting granular with NFL data can be messy, and this package aims to clean up some of that mess.</p>
+<p>In this package you will find functions in three modules:</p>
+<section id="scraping-functions-py">
+<h3>1. scraping_functions.py<a class="headerlink" href="#scraping-functions-py" title="Link to this heading">#</a></h3>
+<p>This module contains functions used to scrape one or multiple games from the Pro Football Reference site.<a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>  Also, contains some functions to scrape a table containing drive data from the game.</p>
+</section>
+<section id="cleaning-functions-py">
+<h3>2. cleaning_functions.py<a class="headerlink" href="#cleaning-functions-py" title="Link to this heading">#</a></h3>
+<p>This module contains functions to clean and organize the data scraped from the Pro Football Reference site.<a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+</section>
+<section id="predicting-functions-py">
+<h3>3. predicting_functions.py<a class="headerlink" href="#predicting-functions-py" title="Link to this heading">#</a></h3>
+<p>This module contains our attempt to forecast game win probability.  This module is subject to further iterations with improved accuracy.</p>
+</section>
+<section id="loading-functions-py">
+<h3>4. loading_functions.py<a class="headerlink" href="#loading-functions-py" title="Link to this heading">#</a></h3>
+<p>This module contains functions to load the prescraped data in the package.</p>
+<p>Contained in this package is also a prescraped set of game data from Week 1 of the 2023 NFL season.</p>
+</section>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<p>Documentation for this package can be found <a class="reference external" href="https://benkearsley.github.io/nfl_scraping_project/">here</a>.</p>
 </section>
 <section id="installation-instructions">
 <h2>Installation Instructions<a class="headerlink" href="#installation-instructions" title="Link to this heading">#</a></h2>
+<p>To install this package, run the following command in your terminal:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/benkearsley/nfl_scraping_project.git
+</pre></div>
+</div>
 </section>
 <section id="usage-examples">
 <h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading">#</a></h2>
+<p>Feel free to check out the demo.ipynb file for examples of how to use the package for scraping game data or predicting game outcome.</p>
 </section>
 <section id="contribution-guidelines">
 <h2>Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Link to this heading">#</a></h2>
+<p>If you wish to contribute, please fork the repository, create a new branch for your contributions, and submit a pull request with a detailed description of the changes. Additionally, please follow the established coding style, provide comprehensive test coverage, and be receptive to feedback for a collaborative and efficient contribution experience.</p>
 </section>
 <section id="licensing-information">
 <h2>Licensing Information<a class="headerlink" href="#licensing-information" title="Link to this heading">#</a></h2>
+<p>This project is licensed under the <a class="reference external" href="https://github.com/benkearsley/nfl_scraping_project?tab=GPL-3.0-1-ov-file">GPL-3.0 License</a>.</p>
+<p>For details, see the <a class="reference external" href="https://github.com/benkearsley/nfl_scraping_project/blob/main/LICENSE">LICENSE</a> file.</p>
 </section>
 <section id="contact-and-support-details">
 <h2>Contact and Support Details<a class="headerlink" href="#contact-and-support-details" title="Link to this heading">#</a></h2>
-</section>
-<section id="citations">
-<h2>Citations<a class="headerlink" href="#citations" title="Link to this heading">#</a></h2>
+<p>Feel free to contact me at <a class="reference external" href="mailto:ben&#46;kearsley&#37;&#52;&#48;outlook&#46;com">ben<span>&#46;</span>kearsley<span>&#64;</span>outlook<span>&#46;</span>com</a></p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Pro Football Reference. https://www.pro-football-reference.com/. Accessed 12/14/2023</p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -276,14 +314,20 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">README</a><ul>
-<li><a class="reference internal" href="#project-description">Project Description</a></li>
+<li><a class="reference internal" href="#">NFL Play by Play Scraping Analysis</a><ul>
+<li><a class="reference internal" href="#project-description">Project Description</a><ul>
+<li><a class="reference internal" href="#scraping-functions-py">1. scraping_functions.py</a></li>
+<li><a class="reference internal" href="#cleaning-functions-py">2. cleaning_functions.py</a></li>
+<li><a class="reference internal" href="#predicting-functions-py">3. predicting_functions.py</a></li>
+<li><a class="reference internal" href="#loading-functions-py">4. loading_functions.py</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
 <li><a class="reference internal" href="#installation-instructions">Installation Instructions</a></li>
 <li><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
 <li><a class="reference internal" href="#contribution-guidelines">Contribution Guidelines</a></li>
 <li><a class="reference internal" href="#licensing-information">Licensing Information</a></li>
 <li><a class="reference internal" href="#contact-and-support-details">Contact and Support Details</a></li>
-<li><a class="reference internal" href="#citations">Citations</a></li>
 </ul>
 </li>
 </ul>
