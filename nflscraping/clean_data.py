@@ -10,7 +10,7 @@ https://benkearsley.github.io/nfl_scraping_project/
 
 
 if __name__ == '__main__':
-    from nflscraping import scraping_functions as sf
+    import scraping_functions as sf
 
     game_links = [
     'https://www.pro-football-reference.com/boxscores/202309110nyj.htm',
