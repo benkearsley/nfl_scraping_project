@@ -8,7 +8,7 @@ with open('requirements.txt', 'r') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='nfl_scraping',
+    name='nflscraping',
     version='0.0.1',
     description='Package-for-doing-NFL-play-by-play-analysis',
     author='Benjamin-Kearsley-&-Zayne-Maughan',
