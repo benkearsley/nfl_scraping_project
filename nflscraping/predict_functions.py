@@ -4,8 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, roc_curve, auc
 import pandas as pd 
 import numpy as np
-from mypackage import cleaning_functions as cf
-from mypackage import scraping_functions as sf
+from nflscraping import cleaning_functions as cf
+from nflscraping import scraping_functions as sf
 import seaborn as sns
 import matplotlib.pyplot as plt
 

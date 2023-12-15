@@ -5,7 +5,7 @@ import numpy as np
 from bs4 import BeautifulSoup, Comment
 import re
 import time
-from mypackage import cleaning_functions as cf
+from nflscraping import cleaning_functions as cf
 from math import inf
 
 # functions
