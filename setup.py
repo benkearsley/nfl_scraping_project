@@ -10,7 +10,7 @@ with open('requirements.txt', 'r') as f:
 setup(
     name='nfl_scraping',
     version='0.0.1',
-    descrption='Package-for-doing-NFL-play-by-play-analysis',
+    description='Package-for-doing-NFL-play-by-play-analysis',
     author='Benjamin-Kearsley-&-Zayne-Maughan',
     author_email='ben.kearsley@outlook.com',
     url='https://github.com/benkearsley/nfl_scraping_project.git',
@@ -18,6 +18,7 @@ setup(
     install_requires=requirements,
     long_description=long_description,
     long_description_content_type='text/markdown',
-    exclude=['Game Data Collection.ipynb']
+    exclude=['Game Data Collection.ipynb', 'ben_testing.ipynb', 'Random_forest_test.ipynb'],
+    package_data = {'mypackage': ['data/*.csv']}
 )
 
