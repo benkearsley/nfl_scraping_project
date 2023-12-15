@@ -1,10 +1,13 @@
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, roc_curve, auc
 import pandas as pd 
+import numpy as np
 from mypackage import cleaning_functions as cf
 from mypackage import scraping_functions as sf
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 def predict_wins(test_data, train_data, n_estimators=400, random_state=42):
@@ -115,6 +118,19 @@ def predict_wins(test_data, train_data, n_estimators=400, random_state=42):
     post_data = new_data
     post_data['y_actuals'] = y
     post_data['y_pred'] = y_pred
+
+    fpr, tpr, _ = roc_curve(y, y_pred)
+    roc_auc = auc(fpr, tpr)
+    plt.figure()
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = {:.2f})'.format(roc_auc))
+    plt.plot([0,1], [0,1], color='navy', lw=2, linestyle='--')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc='lower right')
+    plt.show()
+    
+
     return accuracy, post_data
 
     
